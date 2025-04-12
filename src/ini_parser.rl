@@ -39,7 +39,33 @@
 
   section = '[' spaces (section_name >start_token %store_section) spaces ']' spaces (newline | comment)?;
   key = (key_name >start_token %store_key);
-  value = (val_chars >start_token %store_value);
+  
+
+  # Многострочные строки: """ ... """
+  multiline_string = '"""' (
+      [^"]            |     # любой символ, кроме "
+      '"' [^"]        |     # одинарная кавычка, но не двойная
+      '""' [^"]             # две кавычки, но не три
+  )* '"""';
+
+  # Обычные строки: "..."
+  quoted_string = '"' ( ([^"])  )* '"';
+
+  # Простая строка без кавычек (до первого пробела/перевода строки)
+  bare_string = (print - '\n' - '\r' - '=' - '"')+;
+
+  # Целое число (знак + цифры)
+  integer = ['+' | '-']? digit+;
+
+  # === Объединение всех поддерживаемых значений ===
+
+  value = 
+    (multiline_string >start_token %store_value) |
+    (quoted_string    >start_token %store_value) |
+    (integer          >start_token %store_value) |
+    (bare_string      >start_token %store_value);
+
+
 
   kv_pair = (key spaces '=' spaces value spaces (newline | comment) %store_kv);
 
@@ -72,13 +98,14 @@ int store(char** target, const char *te, const char *ts) {
 int main() {
     const char *data =
         "# Comment\n"
+        "[database]\n"
+        "password = \"\"\"secret\"\"\"\n"
+        "user = \"\"\"admin\nadmin    \n    admin\"\"\"\n"
+        "\n"
         "[server]\n"
         "host = \"localhost\"\n"
-        "port = 8080\n"
-        "\n"
-        "[database]\n"
-        "user = \'admin\'\n"
-        "password = \"secret\"\n";
+        "port = 8080\n";
+        
 
     // const char *data = "[server]bla bla bla";
 
