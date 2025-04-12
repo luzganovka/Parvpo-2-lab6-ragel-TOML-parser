@@ -101,21 +101,37 @@ static const int ini_parser_error = 0;
 static const int ini_parser_en_main = 17;
 
 
-#line 48 "src/ini_parser.rl"
+#line 51 "src/ini_parser.rl"
+
+
+
+
 
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+const char *DELIMETER = "=======================\n\n";
+
+int store(char** target, const char *te, const char *ts) {
+  size_t len = te - ts;
+  free(*target);
+    if (*target = malloc(len + 1)) {
+      memcpy(*target, ts, len);
+      (*target)[len] = '\0';
+    }
+}
 
 int main() {
     const char *data =
         "# Comment\n"
         "[server]\n"
-        "host = localhost\n"
+        "host = \"localhost\"\n"
         "port = 8080\n"
         "\n"
         "[database]\n"
-        "user = \"admin\"\n"
+        "user = \'admin\'\n"
         "password = \"secret\"\n";
 
     // const char *data = "[server]bla bla bla";
@@ -127,15 +143,20 @@ int main() {
 
     int cs = 0;
 
+    size_t len = 0;
+    char *section = NULL;
+    char *key = NULL;
+    char *value = NULL;
+
     
-#line 125 "src/ini_parser.c"
+#line 146 "src/ini_parser.c"
 	{
 	cs = ini_parser_start;
 	}
 
-#line 74 "src/ini_parser.rl"
+#line 98 "src/ini_parser.rl"
     
-#line 128 "src/ini_parser.c"
+#line 149 "src/ini_parser.c"
 	{
 	int _klen;
 	unsigned int _trans;
@@ -214,33 +235,36 @@ _match:
 	{ ts = p; }
 	break;
 	case 1:
-#line 7 "src/ini_parser.rl"
+#line 8 "src/ini_parser.rl"
 	{
     te = p;
-    printf("PARSED| Section: \"%.*s\"\n", (int)(te - ts), ts);
+    store(&section, te, ts);
+    // printf("PARSED| Section: \"%s\"\n", section);
   }
 	break;
 	case 2:
-#line 11 "src/ini_parser.rl"
+#line 14 "src/ini_parser.rl"
 	{
     te = p;
-    printf("PARSED|  Key: \"%.*s\"\n", (int)(te - ts), ts);
+    store(&key, te, ts);
+    // printf("PARSED|  Key: \"%s\"\n", key);
   }
 	break;
 	case 3:
-#line 15 "src/ini_parser.rl"
+#line 20 "src/ini_parser.rl"
 	{
     te = p;
-    printf("PARSED|  Value: \"%.*s\"\n", (int)(te - ts), ts);
+    store(&value, te, ts);
+    // printf("PARSED|  Value: \"%s\"\n", value);
   }
 	break;
 	case 4:
-#line 19 "src/ini_parser.rl"
+#line 25 "src/ini_parser.rl"
 	{
-    // printf("PARSED| KV| Value: \"%.*s\"\n", (int)(te - ts), ts);
+    printf("Section:{%s}\nKey:\t{%s}\nValue:\t{%s}\n%s", section, key, value, DELIMETER);
   }
 	break;
-#line 227 "src/ini_parser.c"
+#line 251 "src/ini_parser.c"
 		}
 	}
 
@@ -257,12 +281,12 @@ _again:
 	while ( __nacts-- > 0 ) {
 		switch ( *__acts++ ) {
 	case 4:
-#line 19 "src/ini_parser.rl"
+#line 25 "src/ini_parser.rl"
 	{
-    // printf("PARSED| KV| Value: \"%.*s\"\n", (int)(te - ts), ts);
+    printf("Section:{%s}\nKey:\t{%s}\nValue:\t{%s}\n%s", section, key, value, DELIMETER);
   }
 	break;
-#line 247 "src/ini_parser.c"
+#line 271 "src/ini_parser.c"
 		}
 	}
 	}
@@ -270,7 +294,7 @@ _again:
 	_out: {}
 	}
 
-#line 75 "src/ini_parser.rl"
+#line 99 "src/ini_parser.rl"
 
     if (cs == ini_parser_error) {
         fprintf(stderr, "Parse error!\n");
