@@ -4,90 +4,101 @@
 #line 2 "src/ini_parser.c"
 static const char _ini_parser_actions[] = {
 	0, 1, 0, 1, 1, 1, 2, 1, 
-	3, 2, 2, 3, 2, 3, 0
+	3, 1, 4, 2, 0, 3, 2, 4, 
+	0
 };
 
 static const char _ini_parser_key_offsets[] = {
-	0, 0, 4, 5, 7, 18, 21, 31, 
-	41, 52, 55, 69, 83, 97, 112
+	0, 0, 4, 5, 7, 18, 21, 25, 
+	32, 39, 49, 60, 63, 64, 71, 76, 
+	78, 85, 99, 113
 };
 
 static const char _ini_parser_trans_keys[] = {
 	9, 10, 13, 32, 10, 10, 13, 9, 
 	32, 45, 61, 95, 48, 57, 65, 90, 
-	97, 122, 9, 32, 61, 9, 32, 45, 
-	95, 48, 57, 65, 90, 97, 122, 9, 
+	97, 122, 9, 32, 61, 9, 32, 33, 
+	126, 9, 10, 13, 32, 35, 33, 126, 
+	9, 10, 13, 32, 35, 33, 126, 9, 
 	32, 45, 95, 48, 57, 65, 90, 97, 
 	122, 9, 32, 45, 93, 95, 48, 57, 
-	65, 90, 97, 122, 9, 32, 93, 9, 
-	10, 13, 32, 35, 45, 91, 95, 48, 
-	57, 65, 90, 97, 122, 9, 10, 13, 
+	65, 90, 97, 122, 9, 32, 93, 10, 
+	9, 10, 13, 32, 35, 33, 126, 9, 
+	10, 13, 32, 35, 10, 13, 9, 10, 
+	13, 32, 35, 33, 126, 9, 10, 13, 
 	32, 35, 45, 91, 95, 48, 57, 65, 
 	90, 97, 122, 9, 10, 13, 32, 35, 
 	45, 91, 95, 48, 57, 65, 90, 97, 
-	122, 9, 10, 13, 32, 35, 45, 61, 
-	91, 95, 48, 57, 65, 90, 97, 122, 
-	9, 10, 13, 32, 35, 45, 61, 91, 
+	122, 9, 10, 13, 32, 35, 45, 91, 
 	95, 48, 57, 65, 90, 97, 122, 0
 };
 
 static const char _ini_parser_single_lengths[] = {
-	0, 4, 1, 2, 5, 3, 4, 4, 
-	5, 3, 8, 8, 8, 9, 9
+	0, 4, 1, 2, 5, 3, 2, 5, 
+	5, 4, 5, 3, 1, 5, 5, 2, 
+	5, 8, 8, 8
 };
 
 static const char _ini_parser_range_lengths[] = {
-	0, 0, 0, 0, 3, 0, 3, 3, 
-	3, 0, 3, 3, 3, 3, 3
+	0, 0, 0, 0, 3, 0, 1, 1, 
+	1, 3, 3, 0, 0, 1, 0, 0, 
+	1, 3, 3, 3
 };
 
-static const char _ini_parser_index_offsets[] = {
-	0, 0, 5, 7, 10, 19, 23, 31, 
-	39, 48, 52, 64, 76, 88, 101
+static const unsigned char _ini_parser_index_offsets[] = {
+	0, 0, 5, 7, 10, 19, 23, 27, 
+	34, 41, 49, 58, 62, 64, 71, 77, 
+	80, 87, 99, 111
 };
 
 static const char _ini_parser_indicies[] = {
 	0, 2, 3, 0, 1, 2, 1, 2, 
 	3, 4, 5, 5, 6, 7, 6, 6, 
 	6, 6, 1, 8, 8, 9, 1, 9, 
-	9, 10, 10, 10, 10, 10, 1, 11, 
-	11, 12, 12, 12, 12, 12, 1, 13, 
-	13, 14, 15, 14, 14, 14, 14, 1, 
-	16, 16, 17, 1, 0, 2, 3, 0, 
-	4, 18, 11, 18, 18, 18, 18, 1, 
-	19, 20, 21, 19, 22, 23, 24, 23, 
-	23, 23, 23, 1, 17, 2, 3, 17, 
-	4, 18, 11, 18, 18, 18, 18, 1, 
-	25, 20, 21, 25, 22, 23, 7, 24, 
-	23, 23, 23, 23, 1, 26, 2, 3, 
-	26, 4, 18, 9, 11, 18, 18, 18, 
-	18, 1, 0
+	10, 11, 1, 12, 13, 14, 15, 16, 
+	11, 1, 17, 18, 19, 10, 20, 11, 
+	1, 21, 21, 22, 22, 22, 22, 22, 
+	1, 23, 23, 24, 25, 24, 24, 24, 
+	24, 1, 26, 26, 27, 1, 18, 1, 
+	28, 13, 14, 29, 31, 30, 1, 32, 
+	18, 19, 32, 33, 1, 18, 19, 33, 
+	34, 13, 14, 31, 31, 35, 33, 0, 
+	2, 3, 0, 4, 36, 21, 36, 36, 
+	36, 36, 1, 37, 38, 39, 37, 40, 
+	41, 42, 41, 41, 41, 41, 1, 27, 
+	2, 3, 27, 4, 36, 21, 36, 36, 
+	36, 36, 1, 0
 };
 
 static const char _ini_parser_trans_targs[] = {
-	1, 0, 10, 2, 3, 5, 4, 6, 
-	5, 6, 11, 7, 8, 9, 8, 12, 
-	9, 12, 4, 12, 10, 2, 3, 13, 
-	7, 14, 14
+	1, 0, 17, 2, 3, 5, 4, 6, 
+	5, 6, 7, 13, 8, 18, 12, 7, 
+	16, 8, 18, 12, 16, 9, 10, 11, 
+	10, 19, 11, 19, 14, 13, 13, 16, 
+	14, 15, 15, 16, 4, 1, 17, 2, 
+	3, 4, 9
 };
 
 static const char _ini_parser_trans_actions[] = {
 	0, 0, 0, 0, 0, 5, 0, 5, 
-	0, 0, 1, 0, 1, 3, 0, 3, 
-	0, 0, 1, 7, 7, 7, 7, 12, 
-	7, 9, 0
+	0, 0, 1, 1, 7, 7, 7, 11, 
+	11, 0, 0, 0, 1, 0, 1, 3, 
+	0, 3, 0, 0, 7, 7, 0, 7, 
+	0, 0, 7, 0, 1, 9, 9, 9, 
+	9, 14, 9
 };
 
 static const char _ini_parser_eof_actions[] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 7, 0, 7, 0
+	0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 9, 0
 };
 
-static const int ini_parser_start = 10;
-static const int ini_parser_first_final = 10;
+static const int ini_parser_start = 17;
+static const int ini_parser_first_final = 17;
 static const int ini_parser_error = 0;
 
-static const int ini_parser_en_main = 10;
+static const int ini_parser_en_main = 17;
 
 
 #line 48 "src/ini_parser.rl"
@@ -117,14 +128,14 @@ int main() {
     int cs = 0;
 
     
-#line 114 "src/ini_parser.c"
+#line 125 "src/ini_parser.c"
 	{
 	cs = ini_parser_start;
 	}
 
 #line 74 "src/ini_parser.rl"
     
-#line 117 "src/ini_parser.c"
+#line 128 "src/ini_parser.c"
 	{
 	int _klen;
 	unsigned int _trans;
@@ -223,7 +234,13 @@ _match:
     printf("PARSED|  Value: \"%.*s\"\n", (int)(te - ts), ts);
   }
 	break;
-#line 211 "src/ini_parser.c"
+	case 4:
+#line 19 "src/ini_parser.rl"
+	{
+    // printf("PARSED| KV| Value: \"%.*s\"\n", (int)(te - ts), ts);
+  }
+	break;
+#line 227 "src/ini_parser.c"
 		}
 	}
 
@@ -239,14 +256,13 @@ _again:
 	unsigned int __nacts = (unsigned int) *__acts++;
 	while ( __nacts-- > 0 ) {
 		switch ( *__acts++ ) {
-	case 3:
-#line 15 "src/ini_parser.rl"
+	case 4:
+#line 19 "src/ini_parser.rl"
 	{
-    te = p;
-    printf("PARSED|  Value: \"%.*s\"\n", (int)(te - ts), ts);
+    // printf("PARSED| KV| Value: \"%.*s\"\n", (int)(te - ts), ts);
   }
 	break;
-#line 232 "src/ini_parser.c"
+#line 247 "src/ini_parser.c"
 		}
 	}
 	}

@@ -17,7 +17,7 @@
     printf("PARSED|  Value: \"%.*s\"\n", (int)(te - ts), ts);
   }
   action store_kv {
-    printf("PARSED| KV| Value: \"%.*s\"\n", (int)(te - ts), ts);
+    // printf("PARSED| KV| Value: \"%.*s\"\n", (int)(te - ts), ts);
   }
 
   # === Правила ===
@@ -29,21 +29,18 @@
 
   section_name = (alnum | '_' | '-')+;
   key_name = (alnum | '_' | '-')+;
-  # val_chars = (print - '"' - '\n' - '\r')+;
-  val_chars = (alnum | '_' | '-')+;
+  val_chars = (print - '\n' - '\r')+;
 
   section = '[' spaces (section_name >start_token %store_section) spaces ']' spaces (newline | comment)?;
   key = (key_name >start_token %store_key);
-  value = (key_name);
+  value = (val_chars >start_token %store_value);
 
-  kv_pair = key spaces '=' spaces (value >start_token %store_value) spaces (newline | comment)?;
+  kv_pair = (key spaces '=' spaces value spaces (newline | comment) %store_kv);
 
   line = (comment | section | kv_pair | spaces newline)+;
 
   main := line*;
-  # Initialize and execute.
-  #write init;
-  #write exec;
+
   write data;
 }%%
 
