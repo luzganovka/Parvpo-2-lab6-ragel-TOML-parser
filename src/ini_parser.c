@@ -8,100 +8,111 @@ static const char _ini_parser_actions[] = {
 	0
 };
 
-static const char _ini_parser_key_offsets[] = {
-	0, 0, 4, 5, 7, 18, 21, 25, 
-	32, 39, 49, 60, 63, 64, 71, 76, 
-	78, 85, 99, 113
+static const unsigned char _ini_parser_key_offsets[] = {
+	0, 0, 4, 5, 7, 18, 21, 29, 
+	39, 49, 59, 70, 73, 74, 84, 89, 
+	91, 92, 93, 98, 104, 105, 106, 107, 
+	121, 135
 };
 
 static const char _ini_parser_trans_keys[] = {
 	9, 10, 13, 32, 10, 10, 13, 9, 
 	32, 45, 61, 95, 48, 57, 65, 90, 
 	97, 122, 9, 32, 61, 9, 32, 33, 
-	126, 9, 10, 13, 32, 35, 33, 126, 
-	9, 10, 13, 32, 35, 33, 126, 9, 
-	32, 45, 95, 48, 57, 65, 90, 97, 
-	122, 9, 32, 45, 93, 95, 48, 57, 
-	65, 90, 97, 122, 9, 32, 93, 10, 
-	9, 10, 13, 32, 35, 33, 126, 9, 
-	10, 13, 32, 35, 10, 13, 9, 10, 
-	13, 32, 35, 33, 126, 9, 10, 13, 
-	32, 35, 45, 91, 95, 48, 57, 65, 
-	90, 97, 122, 9, 10, 13, 32, 35, 
+	34, 36, 60, 62, 126, 9, 10, 13, 
+	32, 34, 35, 33, 60, 62, 126, 9, 
+	10, 13, 32, 34, 35, 33, 60, 62, 
+	126, 9, 32, 45, 95, 48, 57, 65, 
+	90, 97, 122, 9, 32, 45, 93, 95, 
+	48, 57, 65, 90, 97, 122, 9, 32, 
+	93, 10, 9, 10, 13, 32, 33, 35, 
+	36, 60, 62, 126, 9, 10, 13, 32, 
+	35, 10, 13, 34, 34, 9, 10, 13, 
+	32, 35, 9, 10, 13, 32, 34, 35, 
+	34, 34, 34, 9, 10, 13, 32, 35, 
 	45, 91, 95, 48, 57, 65, 90, 97, 
 	122, 9, 10, 13, 32, 35, 45, 91, 
-	95, 48, 57, 65, 90, 97, 122, 0
+	95, 48, 57, 65, 90, 97, 122, 9, 
+	10, 13, 32, 35, 45, 91, 95, 48, 
+	57, 65, 90, 97, 122, 0
 };
 
 static const char _ini_parser_single_lengths[] = {
-	0, 4, 1, 2, 5, 3, 2, 5, 
-	5, 4, 5, 3, 1, 5, 5, 2, 
-	5, 8, 8, 8
+	0, 4, 1, 2, 5, 3, 4, 6, 
+	6, 4, 5, 3, 1, 6, 5, 2, 
+	1, 1, 5, 6, 1, 1, 1, 8, 
+	8, 8
 };
 
 static const char _ini_parser_range_lengths[] = {
-	0, 0, 0, 0, 3, 0, 1, 1, 
-	1, 3, 3, 0, 0, 1, 0, 0, 
-	1, 3, 3, 3
+	0, 0, 0, 0, 3, 0, 2, 2, 
+	2, 3, 3, 0, 0, 2, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 3, 
+	3, 3
 };
 
 static const unsigned char _ini_parser_index_offsets[] = {
-	0, 0, 5, 7, 10, 19, 23, 27, 
-	34, 41, 49, 58, 62, 64, 71, 77, 
-	80, 87, 99, 111
+	0, 0, 5, 7, 10, 19, 23, 30, 
+	39, 48, 56, 65, 69, 71, 80, 86, 
+	89, 91, 93, 99, 106, 108, 110, 112, 
+	124, 136
 };
 
 static const char _ini_parser_indicies[] = {
 	0, 2, 3, 0, 1, 2, 1, 2, 
 	3, 4, 5, 5, 6, 7, 6, 6, 
 	6, 6, 1, 8, 8, 9, 1, 9, 
-	10, 11, 1, 12, 13, 14, 15, 16, 
-	11, 1, 17, 18, 19, 10, 20, 11, 
-	1, 21, 21, 22, 22, 22, 22, 22, 
-	1, 23, 23, 24, 25, 24, 24, 24, 
-	24, 1, 26, 26, 27, 1, 18, 1, 
-	28, 13, 14, 29, 31, 30, 1, 32, 
-	18, 19, 32, 33, 1, 18, 19, 33, 
-	34, 13, 14, 31, 31, 35, 33, 0, 
-	2, 3, 0, 4, 36, 21, 36, 36, 
-	36, 36, 1, 37, 38, 39, 37, 40, 
-	41, 42, 41, 41, 41, 41, 1, 27, 
-	2, 3, 27, 4, 36, 21, 36, 36, 
-	36, 36, 1, 0
+	10, 11, 12, 11, 11, 1, 13, 14, 
+	15, 16, 12, 17, 11, 11, 1, 18, 
+	19, 20, 10, 12, 21, 11, 11, 1, 
+	22, 22, 23, 23, 23, 23, 23, 1, 
+	24, 24, 25, 26, 25, 25, 25, 25, 
+	1, 27, 27, 28, 1, 19, 1, 29, 
+	14, 15, 30, 31, 17, 31, 31, 1, 
+	32, 19, 20, 32, 21, 1, 19, 20, 
+	21, 34, 33, 35, 33, 29, 14, 15, 
+	29, 17, 1, 29, 14, 15, 29, 36, 
+	17, 1, 37, 36, 38, 36, 35, 36, 
+	0, 2, 3, 0, 4, 39, 22, 39, 
+	39, 39, 39, 1, 40, 41, 42, 40, 
+	43, 44, 45, 44, 44, 44, 44, 1, 
+	28, 2, 3, 28, 4, 39, 22, 39, 
+	39, 39, 39, 1, 0
 };
 
 static const char _ini_parser_trans_targs[] = {
-	1, 0, 17, 2, 3, 5, 4, 6, 
-	5, 6, 7, 13, 8, 18, 12, 7, 
-	16, 8, 18, 12, 16, 9, 10, 11, 
-	10, 19, 11, 19, 14, 13, 13, 16, 
-	14, 15, 15, 16, 4, 1, 17, 2, 
-	3, 4, 9
+	1, 0, 23, 2, 3, 5, 4, 6, 
+	5, 6, 7, 13, 16, 8, 24, 12, 
+	7, 15, 8, 24, 12, 15, 9, 10, 
+	11, 10, 25, 11, 25, 14, 13, 13, 
+	14, 17, 19, 18, 20, 21, 22, 4, 
+	1, 23, 2, 3, 4, 9
 };
 
 static const char _ini_parser_trans_actions[] = {
 	0, 0, 0, 0, 0, 5, 0, 5, 
-	0, 0, 1, 1, 7, 7, 7, 11, 
-	11, 0, 0, 0, 1, 0, 1, 3, 
-	0, 3, 0, 0, 7, 7, 0, 7, 
-	0, 0, 7, 0, 1, 9, 9, 9, 
-	9, 14, 9
+	0, 0, 1, 1, 1, 7, 7, 7, 
+	11, 7, 0, 0, 0, 0, 0, 1, 
+	3, 0, 3, 0, 0, 7, 7, 0, 
+	0, 0, 0, 0, 0, 0, 0, 1, 
+	9, 9, 9, 9, 14, 9
 };
 
 static const char _ini_parser_eof_actions[] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 9, 0
+	0, 0, 0, 0, 0, 0, 0, 0, 
+	9, 0
 };
 
-static const int ini_parser_start = 17;
-static const int ini_parser_first_final = 17;
+static const int ini_parser_start = 23;
+static const int ini_parser_first_final = 23;
 static const int ini_parser_error = 0;
 
-static const int ini_parser_en_main = 17;
+static const int ini_parser_en_main = 23;
 
 
-#line 51 "src/ini_parser.rl"
+#line 77 "src/ini_parser.rl"
 
 
 
@@ -123,40 +134,40 @@ int store(char** target, const char *te, const char *ts) {
     }
 }
 
-int main() {
-    const char *data =
-        "# Comment\n"
-        "[server]\n"
-        "host = \"localhost\"\n"
-        "port = 8080\n"
-        "\n"
-        "[database]\n"
-        "user = \'admin\'\n"
-        "password = \"secret\"\n";
+char *section, *key, *value;
+ size_t len;
+ char *data, *ts, *te, *p, *pe, *eof;
+ int cs;
 
-    // const char *data = "[server]bla bla bla";
+void parse_file(const char *filename) {
+    FILE *fp = fopen(filename, "rb");
+    if (!fp) {
+        perror("Ошибка открытия файла");
+        exit(1);
+    }
 
-    const char *p = data;
-    const char *pe = data + strlen(data);
-    const char *eof = pe;
-    const char *ts = NULL, *te = NULL;
+    fseek(fp, 0, SEEK_END);
+    long len = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
 
-    int cs = 0;
+    data = malloc(len + 1);
+    fread(data, 1, len, fp);
+    data[len] = '\0';
 
-    size_t len = 0;
-    char *section = NULL;
-    char *key = NULL;
-    char *value = NULL;
+    fclose(fp);
+
+    p  = data;
+    pe = data + len;
 
     
-#line 146 "src/ini_parser.c"
+#line 157 "src/ini_parser.c"
 	{
 	cs = ini_parser_start;
 	}
 
-#line 98 "src/ini_parser.rl"
+#line 124 "src/ini_parser.rl"
     
-#line 149 "src/ini_parser.c"
+#line 160 "src/ini_parser.c"
 	{
 	int _klen;
 	unsigned int _trans;
@@ -264,7 +275,7 @@ _match:
     printf("Section:{%s}\nKey:\t{%s}\nValue:\t{%s}\n%s", section, key, value, DELIMETER);
   }
 	break;
-#line 251 "src/ini_parser.c"
+#line 262 "src/ini_parser.c"
 		}
 	}
 
@@ -286,7 +297,7 @@ _again:
     printf("Section:{%s}\nKey:\t{%s}\nValue:\t{%s}\n%s", section, key, value, DELIMETER);
   }
 	break;
-#line 271 "src/ini_parser.c"
+#line 282 "src/ini_parser.c"
 		}
 	}
 	}
@@ -294,12 +305,23 @@ _again:
 	_out: {}
 	}
 
-#line 99 "src/ini_parser.rl"
+#line 125 "src/ini_parser.rl"
+
+    free(data);
+    free(section);
 
     if (cs == ini_parser_error) {
         fprintf(stderr, "Parse error!\n");
+        exit(2);
+    }
+}
+
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        printf("Использование: %s <config_file.toml>\n", argv[0]);
         return 1;
     }
 
+    parse_file(argv[1]);
     return 0;
 }

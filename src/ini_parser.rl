@@ -39,7 +39,33 @@
 
   section = '[' spaces (section_name >start_token %store_section) spaces ']' spaces (newline | comment)?;
   key = (key_name >start_token %store_key);
-  value = (val_chars >start_token %store_value);
+  
+
+  # Многострочные строки: """ ... """
+  multiline_string = '"""' (
+      [^"]            |     # любой символ, кроме "
+      '"' [^"]        |     # одинарная кавычка, но не двойная
+      '""' [^"]             # две кавычки, но не три
+  )* '"""';
+
+  # Обычные строки: "..."
+  quoted_string = '"' ( ([^"])  )* '"';
+
+  # Простая строка без кавычек (до первого пробела/перевода строки)
+  bare_string = (print - '\n' - '\r' - '=' - '"' -'#')+;
+
+  # Целое число (знак + цифры)
+  integer = ['+' | '-']? digit+;
+
+  # === Объединение всех поддерживаемых значений ===
+
+  value = 
+    (multiline_string >start_token %store_value) |
+    (quoted_string    >start_token %store_value) |
+    (integer          >start_token %store_value) |
+    (bare_string      >start_token %store_value);
+
+
 
   kv_pair = (key spaces '=' spaces value spaces (newline | comment) %store_kv);
 
@@ -69,38 +95,49 @@ int store(char** target, const char *te, const char *ts) {
     }
 }
 
-int main() {
-    const char *data =
-        "# Comment\n"
-        "[server]\n"
-        "host = \"localhost\"\n"
-        "port = 8080\n"
-        "\n"
-        "[database]\n"
-        "user = \'admin\'\n"
-        "password = \"secret\"\n";
+char *section, *key, *value;
+ size_t len;
+ char *data, *ts, *te, *p, *pe, *eof;
+ int cs;
 
-    // const char *data = "[server]bla bla bla";
+void parse_file(const char *filename) {
+    FILE *fp = fopen(filename, "rb");
+    if (!fp) {
+        perror("Ошибка открытия файла");
+        exit(1);
+    }
 
-    const char *p = data;
-    const char *pe = data + strlen(data);
-    const char *eof = pe;
-    const char *ts = NULL, *te = NULL;
+    fseek(fp, 0, SEEK_END);
+    long len = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
 
-    int cs = 0;
+    data = malloc(len + 1);
+    fread(data, 1, len, fp);
+    data[len] = '\0';
 
-    size_t len = 0;
-    char *section = NULL;
-    char *key = NULL;
-    char *value = NULL;
+    fclose(fp);
 
-    %%write init;
-    %%write exec;
+    p  = data;
+    pe = data + len;
+
+    %% write init;
+    %% write exec;
+
+    free(data);
+    free(section);
 
     if (cs == ini_parser_error) {
         fprintf(stderr, "Parse error!\n");
+        exit(2);
+    }
+}
+
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        printf("Использование: %s <config_file.toml>\n", argv[0]);
         return 1;
     }
 
+    parse_file(argv[1]);
     return 0;
 }
