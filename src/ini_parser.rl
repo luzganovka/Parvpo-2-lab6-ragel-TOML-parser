@@ -23,7 +23,9 @@
     // printf("PARSED|  Value: \"%s\"\n", value);
   }
   action store_kv {
+#ifdef PRINT_OUTPUT
     printf("Section:{%s}\nKey:\t{%s}\nValue:\t{%s}\n%s", section, key, value, DELIMETER);
+#endif    
   }
 
   # === Правила ===

@@ -14,10 +14,18 @@ init:
 
 compile:
 	ragel -C $(SRC)/$(NAME).rl -o $(SRC)/$(NAME).c
-	gcc $(SRC)/$(NAME).c -o $(BIN)/$(NAME)
+	gcc -DPRINT_OUTPUT $(SRC)/$(NAME).c -o $(BIN)/$(NAME)
 
 run:
-	./$(BIN)/$(NAME) $(EXAMPLE)
+	$(BIN)/$(NAME) $(EXAMPLE)
+
+
+timing:
+	ragel -C $(SRC)/$(NAME).rl -o $(SRC)/$(NAME).c
+	gcc $(SRC)/$(NAME).c -o $(BIN)/$(NAME)
+	gcc $(SRC)/benchmark.c -o $(BIN)/benchmark -lrt
+	$(BIN)/benchmark 200 1000
+
 
 graph-all:
 	@for m in $(MACHINES); do \
@@ -27,16 +35,6 @@ graph-all:
 		rm			$(OUT)/$$m.dot; \
 	done
 	@echo "All SVGs saved as $(OUT)/<machine_name>.svg!"
-
-random_ini:
-	python3 $(SRC)/ini_generator.py -z 100 -o $(EXAMPLE)
-
-timing:
-	@for size in $(SIZES); do \
-		python3 $(SRC)/ini_generator.py -z $$size -o $(EXAMPLE); \
-		make run; \
-	done
-	@echo "All iterations passed!"
 
 	
 clean_bin:

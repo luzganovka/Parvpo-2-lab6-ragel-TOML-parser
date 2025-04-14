@@ -38,7 +38,7 @@ def generate_ini_by_size(target_kb, output="random.ini"):
         current_size += len("\n".encode("utf-8"))
 
     Path(output).write_text("\n".join(content), encoding='utf-8')
-    print(f"✅ File '{output}' generated ({current_size / 1024:.2f} KB).")
+    print(f"File '{output}' generated ({current_size / 1024:.2f} KB).")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate random ini (TOML-like) file of specified size.")

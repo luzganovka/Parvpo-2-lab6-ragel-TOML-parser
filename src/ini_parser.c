@@ -112,7 +112,7 @@ static const int ini_parser_error = 0;
 static const int ini_parser_en_main = 23;
 
 
-#line 77 "src/ini_parser.rl"
+#line 79 "src/ini_parser.rl"
 
 
 
@@ -165,7 +165,7 @@ void parse_file(const char *filename) {
 	cs = ini_parser_start;
 	}
 
-#line 124 "src/ini_parser.rl"
+#line 126 "src/ini_parser.rl"
     
 #line 160 "src/ini_parser.c"
 	{
@@ -272,10 +272,12 @@ _match:
 	case 4:
 #line 25 "src/ini_parser.rl"
 	{
+#ifdef PRINT_OUTPUT
     printf("Section:{%s}\nKey:\t{%s}\nValue:\t{%s}\n%s", section, key, value, DELIMETER);
+#endif    
   }
 	break;
-#line 262 "src/ini_parser.c"
+#line 264 "src/ini_parser.c"
 		}
 	}
 
@@ -294,10 +296,12 @@ _again:
 	case 4:
 #line 25 "src/ini_parser.rl"
 	{
+#ifdef PRINT_OUTPUT
     printf("Section:{%s}\nKey:\t{%s}\nValue:\t{%s}\n%s", section, key, value, DELIMETER);
+#endif    
   }
 	break;
-#line 282 "src/ini_parser.c"
+#line 286 "src/ini_parser.c"
 		}
 	}
 	}
@@ -305,7 +309,7 @@ _again:
 	_out: {}
 	}
 
-#line 125 "src/ini_parser.rl"
+#line 127 "src/ini_parser.rl"
 
     free(data);
     free(section);
